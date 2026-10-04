@@ -1,0 +1,48 @@
+schema: spec-driven
+
+context: |
+  Product: a web app that turns a user's already-curated photos into a
+  printed square photo album with almost no design effort.
+
+  Fixed constraints for every artifact:
+  - The user chooses the photos. The system never selects or ranks photos.
+  - Every selected photo appears exactly once unless the user removes it.
+  - No automatic cropping. Slots adopt the photo's aspect ratio.
+  - Customer photographs are never regenerated, repainted or altered by AI.
+  - Photo placement, page count, parity and price are computed by
+    deterministic code. AI never owns these.
+  - AI generates all artwork (spread backgrounds, cover art) per album,
+    unique each time, no cache, no human QA. Quality is enforced by prompt
+    constraints and automated checks in code.
+  - Original photo files stay in the browser. The server never stores the
+    customer's source photo library. Only rendered print output is uploaded.
+  - Design unit is the two-page spread. User photos never cross the gutter.
+  - Preview (React) and print (PDF) share one geometry module.
+  - Final PDF is produced page by page in the browser and uploaded in
+    chunks; the server assembles and validates it.
+  - Payment is not sequenced yet. The order pipeline exposes gates before
+    rendering and after assembly; payment plugs into either later.
+  - Binding (hardcover or softcover) is the user's choice at pricing time.
+  - Map licensing and attribution are out of scope.
+  - Solo developer project. Prefer simple, verifiable designs.
+
+rules:
+  proposal:
+    - State what is out of scope for the change
+  specs:
+    - Requirements use SHALL and are observable or testable
+    - Do not name libraries or internal modules in requirement text
+  design:
+    - Each decision lists at least one rejected alternative and why
+  tasks:
+    - Each task names how it is verified
+    - Each task is small enough to be one local commit
+
+operations:
+  apply:
+    guidance:
+      - Commit after every completed task with a message that states why and what landed
+      - Never push; all commits stay local unless the user asks otherwise
+  archive:
+    guidance:
+      - Append a dated entry to docs/decisions.md for any new decision the change introduced

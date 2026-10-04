@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+.next/
+out/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*.log
+
+# Test artifacts
+coverage/
+playwright-report/
+test-results/
+
+# Local scratch (never commit sample customer photos)
+scratch/
