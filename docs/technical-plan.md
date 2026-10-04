@@ -301,14 +301,17 @@ Operational hygiene: no third-party analytics or session replay on the preview s
 
 ## 17. Build order
 
-1. `packages/core`: types, layout library, geometry, planner, validator, pricing — all testable with no browser.
-2. `apps/web` ingestion worker and persistence; selection screen.
-3. Preview with a static placeholder theme; edits; special groups.
-4. `packages/print` producer with fixture book; `qpdf` validation.
-5. `apps/api`: albums, orders, state machine with auto gates, chunk upload, assembler.
-6. `packages/theme`: brief, prompts, adapter, upscaler, checks, storage; wire into preview.
-7. Maps.
-8. Cover templates and static back cover.
-9. End-to-end run producing a real test print with the chosen printer.
-
 Each step is its own OpenSpec change with its own tasks and commits.
+
+| # | Change | Scope | Verified by |
+|---|---|---|---|
+| 1 | `build-core-plan-model` | Plan types, layout library data, geometry module, validator, pricing in `packages/core` | Unit and property tests, no browser |
+| 2 | `build-planner` | Clustering, special groups, density packing, hero promotion, parity padding, incremental repack | Property tests: every photo once, no gutter, minimums, determinism |
+| 3 | `build-ingestion` | Selection, EXIF, orientation, thumbnails in a worker, IndexedDB persistence, file handles, metadata questions | Playwright on fixtures including HEIC and a placeholder file |
+| 4 | `build-preview` | React spread view on shared geometry, watermark overlay, edits, validation display | Visual snapshots against geometry fixtures |
+| 5 | `build-print-producer` | Per-page PDF in a worker, JPEG passthrough and decode paths, colour, fonts, boxes, preflight | `qpdf --check` and box inspection on a fixture book |
+| 6 | `build-api-orders` | Albums, orders, state machine with auto and manual gates, pricing endpoint, chunk upload, manifest, assembler, retention jobs | Integration tests |
+| 7 | `build-theme-pipeline` | Brief inference, prompt templates, model adapter, upscaler, acceptance checks, fallback, storage, preview wiring | Fixture images through checks; one real generation |
+| 8 | `build-maps` | Geocoding, region shapes, pins, route curve, vector rendering, single-marker fallback | Rendering a fixture itinerary |
+| 9 | `build-covers` | Placement templates, oversized artwork crop per binding and spine, photo placement, title text, static back cover | Both bindings rendered from one asset |
+| 10 | `first-test-print` | Full flow on 20 fixture photos through assembly and a real printer order | Physical book inspected against preview |

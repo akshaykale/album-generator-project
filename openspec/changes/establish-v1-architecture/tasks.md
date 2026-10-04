@@ -22,15 +22,8 @@ This change produces specifications and documentation only. Implementation happe
 - [x] 2.4 Add Cursor rules for spec workflow, commit discipline and architecture invariants under `.cursor/rules/`; verify each rule file has valid frontmatter with `alwaysApply: true`
 - [x] 2.5 Add a README that explains the repository layout, the OpenSpec workflow and where decisions live; verify links resolve
 
-## 3. Follow-up implementation changes (to be created with `openspec new change`, in this order)
+## Follow-up implementation changes
 
-- [ ] 3.1 `build-core-plan-model`: plan types, layout library data, geometry module, validator, pricing; verified by unit and property tests with no browser
-- [ ] 3.2 `build-planner`: clustering, special groups, density packing, hero promotion, parity padding, incremental repack; verified by property tests (every photo once, no gutter, minimums, determinism)
-- [ ] 3.3 `build-ingestion`: selection, EXIF, orientation, thumbnails in a worker, IndexedDB persistence, file handles, metadata questions; verified by Playwright on fixture files including HEIC and a placeholder file
-- [ ] 3.4 `build-preview`: React spread view on shared geometry, watermark overlay, edits and validation display; verified by visual snapshot against geometry fixtures
-- [ ] 3.5 `build-print-producer`: per-page PDF in a worker, JPEG passthrough and decode paths, colour handling, fonts, boxes, preflight; verified by `qpdf --check` and box inspection on a fixture book
-- [ ] 3.6 `build-api-orders`: albums, orders, state machine with auto and manual gates, pricing endpoint, chunk upload, manifest, assembler and validation, retention jobs; verified by integration tests
-- [ ] 3.7 `build-theme-pipeline`: brief inference, prompt templates, model adapter, upscaler, acceptance checks, fallback, storage, preview wiring; verified by fixture images through the checks and one real generation
-- [ ] 3.8 `build-maps`: geocoding, region shapes, pins, route curve, vector rendering in preview and print, single-marker fallback; verified by rendering a fixture itinerary
-- [ ] 3.9 `build-covers`: placement templates, oversized artwork crop per binding and spine, photo placement, title text, static back cover; verified by rendering both bindings from one asset
-- [ ] 3.10 `first-test-print`: full flow on 20 fixture photos through assembly and a real printer order; verified by inspecting the physical book against the preview
+Not tasks of this change. Each is created later with `openspec new change <name>` and carries its own tasks. Order and verification method are in `docs/technical-plan.md` section 17:
+
+`build-core-plan-model`, `build-planner`, `build-ingestion`, `build-preview`, `build-print-producer`, `build-api-orders`, `build-theme-pipeline`, `build-maps`, `build-covers`, `first-test-print`.
