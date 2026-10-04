@@ -20,7 +20,7 @@ This change produces specifications and documentation only. Implementation happe
 - [x] 2.2 Write `docs/decisions.md` ledger with every decision made in the review; verify each row has a date, rationale and status
 - [x] 2.3 Write `design.md` indexing decisions with rejected alternatives and pointing into the technical plan; verify no section merely restates the proposal
 - [x] 2.4 Add Cursor rules for spec workflow, commit discipline and architecture invariants under `.cursor/rules/`; verify each rule file has valid frontmatter with `alwaysApply: true`
-- [ ] 2.5 Add a README that explains the repository layout, the OpenSpec workflow and where decisions live; verify links resolve
+- [x] 2.5 Add a README that explains the repository layout, the OpenSpec workflow and where decisions live; verify links resolve
 
 ## 3. Follow-up implementation changes (to be created with `openspec new change`, in this order)
 
