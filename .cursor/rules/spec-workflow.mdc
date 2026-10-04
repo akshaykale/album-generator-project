@@ -1,0 +1,30 @@
+---
+description: Spec-driven workflow with OpenSpec. Behavior changes start as a change, are implemented from tasks, and are archived into specs.
+alwaysApply: true
+---
+
+# Spec-driven workflow
+
+`openspec/specs/` is the source of truth for how the system behaves. `openspec/changes/<name>/` holds proposed work. `docs/technical-plan.md` holds the engineering behind the specs. `docs/decisions.md` is the dated decision ledger.
+
+## Before changing behavior
+
+- Any change to observable behavior starts as an OpenSpec change (`openspec new change <kebab-name>`), with proposal, delta specs, design (when the change is cross-cutting) and tasks. Do not implement from chat alone.
+- Read the relevant main spec in full before writing a delta. Use `MODIFIED` only with the entire requirement block copied; use `ADDED` for new concerns.
+- Pure refactors, tooling and docs changes with no behavior change set `skip_specs: true` in the change's `.openspec.yaml`.
+- Run `openspec validate <name> --strict` before starting implementation.
+
+## While implementing
+
+- Work from `tasks.md`. Tick a task (`- [x]`) only when its stated verification has actually been run.
+- When implementation reveals the spec is wrong, update the delta spec in the same change and say so in the commit; do not silently diverge.
+- Keep `docs/technical-plan.md` in step with the code when an engineering approach changes.
+
+## When finishing
+
+- Archive with `openspec archive <name>` (or `/opsx-archive`) so delta specs merge into `openspec/specs/`.
+- Append any new or reversed decision to `docs/decisions.md` with date, rationale and status in the same commit as the archive.
+
+## Verification artifacts
+
+- Anything written only to verify work (scratch scripts, sample output) lives outside the repo (for example `/tmp`) or under the ignored `scratch/` directory. Never commit sample customer photos.

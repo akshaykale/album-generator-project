@@ -1,0 +1,33 @@
+---
+description: Local-only git with one small commit per completed slice and a message that states why and what landed.
+alwaysApply: true
+---
+
+# Commit discipline
+
+## Scope of a commit
+
+- One commit per completed task or spec slice. If a task touched two unrelated concerns, split it.
+- A commit must leave the repo consistent: specs validate, tests that exist pass, docs match code.
+
+## Message format
+
+```
+<type>(<scope>): <imperative summary, under 72 chars>
+
+Why: one or two sentences on the reason this change exists.
+
+Included:
+- bullet per concrete thing that landed (file, behavior, test, doc)
+- ...
+```
+
+Types: `spec`, `feat`, `fix`, `refactor`, `test`, `docs`, `chore`. Scope is the capability or package (`album-planning`, `core`, `print`, `web`, `api`, `theme`).
+
+## Rules
+
+- Commits stay local. Do not add a remote, push, or create pull requests unless the user explicitly asks.
+- Author is `akshaykale <ark.akshaykale@gmail.com>` (already set in repo config). Do not change it.
+- Never commit secrets, API keys, `.env` files, or customer photos. Fixture photos for tests must be synthetic or owned by the project.
+- Do not amend or rewrite commits that already exist unless the user asks.
+- Verify what the commit claims before writing the message; the message is a record, not an intention.

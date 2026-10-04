@@ -1,0 +1,46 @@
+---
+description: Non-negotiable architecture invariants for the travel album product. Any code that would violate one needs a spec change first.
+alwaysApply: true
+---
+
+# Architecture invariants
+
+These hold across the whole codebase. If a task seems to require breaking one, stop and propose an OpenSpec change instead of writing the code.
+
+## Photos
+
+- Original photo files are never uploaded as files. Only rendered print pages (and explicit opt-in support attachments) leave the browser.
+- Customer photographs are never sent to an image model and never regenerated, repainted or altered. Resizing and orientation correction are the only permitted transforms.
+- No automatic cropping. A slot fits the photo at the photo's own aspect ratio; background shows around it.
+- Every selected photo appears exactly once unless the user removed it. The validator enforces this on every plan.
+- A user photo never crosses the gutter. Background artwork may.
+
+## Determinism
+
+- Photo placement, grouping, page count, parity padding, spine width and price are computed by deterministic code in `packages/core`. No `Math.random`, no `Date.now`, no model call in that path.
+- Identical inputs must produce a byte-identical plan.
+- AI output (theme brief, artwork, title suggestions) is advisory input that passes automated acceptance checks before use and always has a code-defined fallback.
+
+## Rendering
+
+- One geometry module in millimetres is the only source of positions. Preview (React) and print (PDF) both consume it; neither computes layout.
+- Print output is produced one page at a time in a worker with at most one full-resolution decode in memory. Never build the whole book as one in-memory document and never rasterize whole pages to bitmaps.
+- Every print page declares trim and bleed boxes; text is real embedded text, never pixels in artwork.
+- Wide-gamut images are converted to sRGB or embedded with their profile; raw bytes are embedded only when already sRGB.
+
+## Order pipeline
+
+- Gate A (before production) and Gate B (after assembly) contain no payment logic. Payment, when added, implements the gate handler interface and is attached to a gate; the surrounding states do not change.
+- Price is shown only after the plan passes validation and is recomputed on any edit that changes page count or binding.
+
+## Privacy
+
+- Server receives place names and cluster centroids, never per-photo GPS.
+- User-facing privacy copy must describe the actual data flows, including that the finished album file containing their photos is uploaded for printing and how long it is kept.
+- No session replay or third-party analytics on screens that display photos.
+
+## Scope guards
+
+- Desktop Chromium is the supported production environment in V1. Do not add mobile production paths without a change.
+- Maps: real coordinates for pins and routes, vector rendering; licensing and attribution are explicitly out of scope and should not be raised.
+- Themes are generated per album, unique, uncached, with no human QA step. Do not introduce caching or manual review into the pipeline.
