@@ -1,0 +1,92 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Paper and ink */
+  --color-paper: #f7f0e4;
+  --color-paper-deep: #ede3d1;
+  --color-paper-shade: #dfd2bb;
+  --color-desk: #cdbfa6;
+  --color-desk-deep: #b8a88c;
+  --color-ink: #2a251f;
+  --color-ink-soft: #5d554a;
+  --color-ink-faint: #9a9081;
+
+  /* Accents */
+  --color-terracotta: #c9684a;
+  --color-terracotta-deep: #a9523a;
+  --color-sage: #7d987a;
+  --color-sage-deep: #5f7a5c;
+  --color-mustard: #d9a441;
+
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+  --font-body: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --shadow-page: 0 1px 2px rgb(42 37 31 / 0.08), 0 12px 32px -12px rgb(42 37 31 / 0.35);
+  --shadow-sheet: 0 20px 50px -10px rgb(42 37 31 / 0.5);
+  --shadow-lift: 0 2px 6px rgb(42 37 31 / 0.12), 0 10px 20px -10px rgb(42 37 31 / 0.3);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--color-ink);
+    background: var(--color-desk);
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgb(255 255 255 / 0.35), transparent 55%),
+      radial-gradient(ellipse at 90% 100%, rgb(42 37 31 / 0.18), transparent 60%);
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@utility paper-grain {
+  background-color: var(--color-paper);
+  background-image:
+    radial-gradient(rgb(42 37 31 / 0.035) 0.6px, transparent 0.6px),
+    linear-gradient(180deg, rgb(255 255 255 / 0.35), transparent 40%);
+  background-size:
+    5px 5px,
+    100% 100%;
+}
+
+@utility page-edge-left {
+  box-shadow:
+    inset 14px 0 24px -16px rgb(42 37 31 / 0.35),
+    var(--shadow-page);
+}
+
+@utility page-edge-right {
+  box-shadow:
+    inset -14px 0 24px -16px rgb(42 37 31 / 0.35),
+    var(--shadow-page);
+}
+
+@utility backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@utility preserve-3d {
+  transform-style: preserve-3d;
+}
