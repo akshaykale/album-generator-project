@@ -1,4 +1,4 @@
-# Travel Album
+# Travel Album Generator
 
 Turns a user's already-curated photos into a printed square photo album with a unique AI-generated visual identity, while the original photo files never leave the browser.
 
